@@ -3,21 +3,21 @@ services:
  - docker
 
 before_install:
- - docker build -t supatter/react-test -f ./client/Dockerfile.dev ./client
+ - docker build -t supattra/react-test -f ./client/Dockerfile.dev ./client
 
 script:
- - docker run supatter/react-test npm test-- --coverage
+ - docker run -e CI=true supattra/react-test npm test -- --coverage
 
 after_success:
- - docker build -t supatter/multi-client ./client
- - docker build -t supatter/multi-nginx ./nginx
- - docker build -t supatter/multi-server ./server
- - docker build -t supatter/multi-worker ./worker
+ - docker build -t supattra/multi-client ./client
+ - docker build -t supattra/multi-nginx ./nginx
+ - docker build -t supattra/multi-server ./server
+ - docker build -t supattra/multi-worker ./worker
  # login to docker CLI
  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
  # take those images to docker hub
- - docker push supatter/multi-client
- - docker push supatter/multi-nginx
- - docker push supatter/multi-server
- - docker push supatter/multi-worker
+ - docker push supattra/multi-client
+ - docker push supattra/multi-nginx
+ - docker push supattra/multi-server
+ - docker push supattra/multi-worker
 
